@@ -46,7 +46,7 @@ export default class HolbertonCourse {
   }
 
   set length(value) {
-    if (typeof length !== 'number') {
+    if (typeof value !== 'number') {
       throw new TypeError('Length must be a number');
     }
 
@@ -54,7 +54,7 @@ export default class HolbertonCourse {
   }
 
   set students(value) {
-    if (!isArrayOfStrings(students)) {
+    if (!isArrayOfStrings(value)) {
       throw new TypeError('Students must be an array of strings');
     }
 
