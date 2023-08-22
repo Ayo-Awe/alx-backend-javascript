@@ -1,4 +1,4 @@
-const fs = require("fs/promises");
+const fs = require('fs/promises');
 
 function zip(array1, array2) {
   const pairs = [];
@@ -36,17 +36,17 @@ function parseCsv(csv) {
   // if line no is 1 then set headers to line
   // else create new object where the header matches the line position
 
-  const lines = csv.trim().split("\n");
+  const lines = csv.trim().split('\n');
 
   if (lines.length === 0) {
     return [];
   }
 
-  const headers = lines[0].split(",");
+  const headers = lines[0].split(',');
   const rows = lines.slice(1);
 
   return rows.map((row) => {
-    const values = row.split(",");
+    const values = row.split(',');
     const headerValuePairs = zip(headers, values);
     const rowAsObject = Object.fromEntries(headerValuePairs);
     return rowAsObject;
@@ -57,7 +57,7 @@ async function countStudents(path) {
   try {
     await fs.open(path);
   } catch (error) {
-    throw Error("Cannot load the database");
+    throw Error('Cannot load the database');
   }
 
   const file = await fs.readFile(path);
@@ -68,9 +68,9 @@ async function countStudents(path) {
   const studentsByField = groupStudentsByField(students);
 
   Object.entries(studentsByField).forEach(([field, students]) => {
-    const listOfFirstNames = students.map((s) => s.firstname).join(", ");
+    const listOfFirstNames = students.map((s) => s.firstname).join(', ');
     console.log(
-      `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`
+      `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`,
     );
   });
 }
