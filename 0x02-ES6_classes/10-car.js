@@ -5,7 +5,7 @@ export default class Car {
     this._motor = motor;
   }
 
-  static get [Symbol.species]() {
+  static [Symbol.species]() {
     return this;
   }
 

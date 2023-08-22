@@ -62,6 +62,7 @@ function countStudents(path) {
       const students = parseCsv(data.toString());
 
       const studentsByField = groupStudentsByField(students);
+      console.log(`Number of students: ${students.length}`);
 
       Object.entries(studentsByField).forEach(([field, students]) => {
         const listOfFirstNames = students.map((s) => s.firstname).join(', ');
