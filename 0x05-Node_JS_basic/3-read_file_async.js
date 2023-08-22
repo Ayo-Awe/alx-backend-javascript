@@ -1,4 +1,4 @@
-const fs = require('fs/promises');
+const fs = require('fs');
 
 function zip(array1, array2) {
   const pairs = [];
@@ -53,25 +53,25 @@ function parseCsv(csv) {
   });
 }
 
-async function countStudents(path) {
-  try {
-    await fs.open(path);
-  } catch (error) {
-    throw Error('Cannot load the database');
-  }
+function countStudents(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, (err, data) => {
+      if (err && err.code === 'ENOENT') {
+        return reject(new Error('Cannot load the database'));
+      }
+      const students = parseCsv(data.toString());
 
-  const file = await fs.readFile(path);
-  const students = parseCsv(file.toString());
+      const studentsByField = groupStudentsByField(students);
 
-  console.log(`Number of students: ${students.length}`);
+      Object.entries(studentsByField).forEach(([field, students]) => {
+        const listOfFirstNames = students.map((s) => s.firstname).join(', ');
+        console.log(
+          `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`,
+        );
+      });
 
-  const studentsByField = groupStudentsByField(students);
-
-  Object.entries(studentsByField).forEach(([field, students]) => {
-    const listOfFirstNames = students.map((s) => s.firstname).join(', ');
-    console.log(
-      `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`,
-    );
+      return resolve();
+    });
   });
 }
 
