@@ -89,6 +89,6 @@ app.on('request', (req, res) => {
   res.end();
 });
 
-module.export = app;
+module.exports = app;
 
 app.listen(1245);
