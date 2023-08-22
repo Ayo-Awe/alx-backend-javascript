@@ -1,4 +1,4 @@
-import readDatabase from "../utils";
+import readDatabase from '../utils';
 
 function groupStudentsByField(students) {
   return students.reduce((acc, curr) => {
@@ -16,32 +16,32 @@ function sortByField([a], [b]) {
   return a.toLowerCase() - b.toLowerCase();
 }
 
-export class StudentsController {
+export default class StudentsController {
   static async getAllStudents(req, res) {
     try {
       const students = await readDatabase(process.argv[2]);
       const groupedStudents = groupStudentsByField(students);
 
-      res.write("This is the list of our students\n");
+      res.write('This is the list of our students\n');
 
       Object.entries(groupedStudents)
         .sort(sortByField)
         .forEach(([field, students], i) => {
-          const listOfFirstNames = students.map((s) => s.firstname).join(", ");
+          const listOfFirstNames = students.map((s) => s.firstname).join(', ');
 
           if (i > 0) {
-            res.write("\n");
+            res.write('\n');
           }
 
           res.write(
-            `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`
+            `Number of students in ${field}: ${students.length}. List: ${listOfFirstNames}`,
           );
         });
 
       res.end();
     } catch (error) {
       console.log(error);
-      res.status(500).send("Cannot load the database");
+      res.status(500).send('Cannot load the database');
     }
   }
 
@@ -49,8 +49,8 @@ export class StudentsController {
     try {
       const { major } = req.params;
 
-      if (!["CS", "SWE"].includes(major)) {
-        return res.status(500).send("Major parameter must be CS or SWE");
+      if (!['CS', 'SWE'].includes(major)) {
+        return res.status(500).send('Major parameter must be CS or SWE');
       }
 
       const students = await readDatabase(process.argv[2]);
@@ -58,15 +58,14 @@ export class StudentsController {
 
       const listOfFirstNames = groupedStudents[major]
         .map((s) => s.firstname)
-        .join(", ");
+        .join(', ');
 
       res.write(`List: ${listOfFirstNames}`);
 
       res.end();
     } catch (error) {
-      console.log(error);
-
-      res.status(500).send("Cannot load the database");
+      res.status(500).send('Cannot load the database');
     }
+    return res;
   }
 }
