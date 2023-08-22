@@ -56,7 +56,7 @@ function parseCsv(csv) {
 function countStudents(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, (err, data) => {
-      if (err && err.code === 'ENOENT') {
+      if (err) {
         return reject(new Error('Cannot load the database'));
       }
       const students = parseCsv(data.toString());
