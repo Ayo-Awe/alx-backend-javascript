@@ -1,4 +1,4 @@
-import { readDatabase } from "../utils";
+import readDatabase from "../utils";
 
 function groupStudentsByField(students) {
   return students.reduce((acc, curr) => {
@@ -40,6 +40,7 @@ export class StudentsController {
 
       res.end();
     } catch (error) {
+      console.log(error);
       res.status(500).send("Cannot load the database");
     }
   }
