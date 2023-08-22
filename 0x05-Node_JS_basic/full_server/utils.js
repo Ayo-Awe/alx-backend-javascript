@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 function zip(array1, array2) {
   const pairs = [];
