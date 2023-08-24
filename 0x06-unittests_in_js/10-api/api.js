@@ -12,7 +12,7 @@ app.get("/cart/:id(\\d+)", (req, res) => {
 });
 
 app.get("/available_payments", (req, res) => {
-  res.json({
+  res.status(200).json({
     payment_methods: {
       credit_cards: true,
       paypal: false,
@@ -21,7 +21,7 @@ app.get("/available_payments", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  res.send("Welcome " + req.body.userName);
+  res.status(200).send("Welcome " + req.body.userName);
 });
 
 app.listen(7865, () => {
