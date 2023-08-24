@@ -1,4 +1,3 @@
-var assert = require("assert");
 const calculateNumber = require("./1-calcul");
 const { expect } = require("chai");
 
@@ -24,19 +23,19 @@ describe("calculateNumber", function () {
   describe("SUBTRACT", () => {
     it("should return correct value when but numbers are integers", function () {
       const sum = calculateNumber("SUBTRACT", 9, 9);
-      assert.equal(sum, 0);
+      expect(sum).eq(0);
     });
     it("should return correct sum when one number should be rounded up", function () {
       const sum = calculateNumber("SUBTRACT", 2.62, 9);
-      assert.equal(sum, -6);
+      expect(sum).eq(-6);
     });
     it("should return correct sum when one number should be rounded down", function () {
       const sum = calculateNumber("SUBTRACT", 0.002, -4);
-      assert.equal(sum, 4);
+      expect(sum).eq(4);
     });
     it("should return correct sum when numbers are negative", function () {
       const sum = calculateNumber("SUBTRACT", -5, -2);
-      assert.equal(sum, -3);
+      expect(sum).eq(-3);
     });
   });
   describe("DIVIDE", () => {
